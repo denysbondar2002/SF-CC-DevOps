@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+spec:
+  selector:
+    matchLabels:
+      app: flask-crud
+  replicas: 10
+  template:
+    metadata:
+      labels:
+        app: flask-crud
+    spec:
+      containers:
+      - name: flask
+        image: denisbondar2002/flaskcrud:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: flask-crud-secret
+                key: SECRET_KEY
+          - name: DATABASE_URL 
+            valueFrom:
+              secretKeyRef:
+                name: flask-crud-secret
+                key: DATABASE_URL
