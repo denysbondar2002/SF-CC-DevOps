@@ -1,0 +1,8 @@
+---
+- name: Update system
+  hosts: all
+  become: yes
+
+  roles:
+    - upgrade-system
+    - deploy-nginx

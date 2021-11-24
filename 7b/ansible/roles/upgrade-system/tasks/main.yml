@@ -1,0 +1,39 @@
+---
+# tasks file for upgrade-system
+- name: Update all packages (RH family)
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+    update_only: yes
+  when: ansible_os_family|lower == "redhat"
+
+- name: Remove unused packages (RH family)
+  yum:
+    autoremove: yes
+  when: ansible_os_family|lower == "redhat"
+  notify:
+    - Restart system
+
+- name: Update all packages (Debian family)
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    only_upgrade: yes
+  when: ansible_os_family|lower == "debian"
+  
+- name: Remove unused packages (Debian family)
+  apt:
+    autoremove: yes
+  when: ansible_os_family|lower == "debian"
+  notify:
+    - Restart system
+
+
+- name: Wait for the reboot and connect
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
