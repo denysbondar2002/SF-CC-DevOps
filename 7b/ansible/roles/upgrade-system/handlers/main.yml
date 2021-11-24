@@ -1,0 +1,5 @@
+---
+# handlers file for upgrade-system
+- name: Restart system
+  reboot:
+    post_reboot_delay: 60
