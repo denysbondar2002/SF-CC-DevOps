@@ -13,6 +13,14 @@ variable "aws_region" {
   type = string
 }
 
+variable "key_pair_name" {
+  type = string
+}
+
+variable "path_to_pub_key" {
+  type = string
+}
+
 variable "ec2_instance_type" {
   type = string
 }
@@ -97,8 +105,8 @@ resource "aws_security_group" "devops-task" {
 }
 
 resource "aws_key_pair" "tf-key" {
-  key_name   = "tf-key"
-  public_key = file("~/.ssh/for-personal-servers.pub")
+  key_name   = var.key_pair_name
+  public_key = file(var.path_to_pub_key)
 }
 
 resource "aws_instance" "devops_task_7b" {
