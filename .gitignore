@@ -3,4 +3,5 @@ venv
 *.pyc*
 migrations
 .terraform*
-.tfstate*
+*.tfstate.*
+*.tfstate
