@@ -21,6 +21,9 @@ variable "public_key" {
   type = string
 }
 
+variable "ec2_instance_type" {
+  type = string
+}
 
 provider "aws" {
   region = var.aws_region
@@ -97,7 +100,7 @@ resource "aws_key_pair" "tf-key" {
 
 resource "aws_instance" "devops_task_6c" {
   ami           = data.aws_ami.debian.id
-  instance_type = "t2.micro"
+  instance_type = var.ec2_instance_type
 
   vpc_security_group_ids = [aws_security_group.devops-task.id]
 
