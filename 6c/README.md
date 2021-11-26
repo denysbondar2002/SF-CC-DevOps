@@ -1,5 +1,6 @@
+# Terraform module to deploy a VM running Nginx Web server
 
-This configuration setup an EC2 Instance
+## This configuration setup an EC2 Instance
 
 To run this configuration you need to do these steps: 
 1. Install terraform
@@ -27,3 +28,30 @@ terraform apply
 ```bash
 terraform destroy
 ```
+
+## Refactoring
+### Creating conventional module structure
+Putting all code in one file is absolutely okay when you're getting familiar with Terraform. However, it is strongly recommended to split the code logically into the following files:
+
+* `main.tf` - create all resources
+* `provider.tf` - contains Provider's configuration. It's not changed as much as other parts of code, so it's better to keep it in a separate file
+* `data.tf` - contains data sources
+* `variables.tf` - contains declarations of variables used in `main.tf`
+* `outputs.tf` - contains outputs from the resources created in `main.tf`
+
+* `terraform.tfvars` - the values of variables are specified here. They are usually project-specific, so it's better to add it to `.gitignore`. You should try keeping Terraform code as generic as possible, so it can be easily re-used by other people.
+* `terraform.tfvars.example` - this one contains some examples on how to specify the variables, some comments, etc. Store it in the repo, so everyone can use it as an example
+
+* `firewall.tf` can be used to separate firewall settings
+
+### Getting rid of hard-coded parameters
+TBD
+
+### Data source - Dynamic block
+TBD
+
+### Firewall Rules - Dynamic block
+TDB
+
+### Bootstrap script
+TBD
