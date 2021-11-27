@@ -55,7 +55,18 @@ variable "ingress_fw_rules" {
 variable "egress_fw_rules" {
   type = any
   description = "Egress Firewall Rules"
-  default = []
+  default = [
+    {
+      from_port        = 0
+      to_port          = 0
+      protocol         = "-1"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      security_groups  = []
+      self             = false
+    }
+  ]
 }
 
 variable "boot_disk_size" {
